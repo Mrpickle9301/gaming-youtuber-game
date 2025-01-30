@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guess the Gaming YouTuber</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #f0f0f0;
+    }
+
+    .game-container {
+      text-align: center;
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 300px;
+    }
+
+    .emoji {
+      font-size: 50px;
+      margin: 20px 0;
+    }
+
+    .input-container {
+      margin-top: 20px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 18px;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="game-container">
+    <h1>Guess the Gaming YouTuber!</h1>
+    
+    <div id="emoji" class="emoji">🎮🕹️</div>
+    
+    <div class="input-container">
+      <input type="text" id="guess" placeholder="Enter your guess" />
+      <button class="btn" onclick="checkAnswer()">Submit</button>
+    </div>
+    
+    <div id="result" class="result"></div>
+  </div>
+  
+  <script>
+    const youtubers = [
+      { emoji: "🎮🕹️", name: "Total Gaming" }, // Level 1
+      { emoji: "👑🎮", name: "Mythpat" },
+      { emoji: "🎮⚡", name: "CarryMinati" },
+      { emoji: "👾🎮", name: "Dynamo Gaming" },
+      { emoji: "💥🎮", name: "Soul Mortal" },
+      { emoji: "🕹️🎤", name: "Raistar" },
+      { emoji: "🎮🔥", name: "Sc0utOP" },
+      { emoji: "👾💣", name: "Mortal" },
+      { emoji: "🎮🏆", name: "Lokesh Gamer" },
+      { emoji: "🎮👑", name: "Desi Gamers" }
+    ];
+    
+    let currentLevel = 0;
+    
+    function checkAnswer() {
+      const guess = document.getElementById("guess").value.trim().toLowerCase();
+      const answer = youtubers[currentLevel].name.toLowerCase();
+      
+      if (guess === answer) {
+        document.getElementById("result").innerText = "Correct! Next Level!";
+        currentLevel++;
+        if (currentLevel < youtubers.length) {
+          updateGame();
+        } else {
+          document.getElementById("result").innerText = "Congratulations! You've completed all the levels!";
+        }
+      } else {
+        document.getElementById("result").innerText = "Wrong guess, try again!";
+      }
+      
+      document.getElementById("guess").value = '';
+    }
+    
+    function updateGame() {
+      document.getElementById("emoji").innerText = youtubers[currentLevel].emoji;
+      document.getElementById("result").innerText = '';
+    }
+    
+    window.onload = updateGame;
+  </script>
+
+</body>
+</html>
